@@ -1,4 +1,17 @@
 {
-    "persons": [],
+    "persons": [
+        {
+            "id": 4006,
+            "FirstName": "Testing",
+            "LastName": "First",
+            "Address": "1234 Customer",
+            "Checking": {
+                "8951": 4321
+            },
+            "Saving": {
+                "1719": 1234
+            }
+        }
+    ],
     "employees": []
 }

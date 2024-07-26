@@ -38,6 +38,7 @@ class Customer(Person):
         Person.__init__(self, firstname, lastname, address)
 
     def showinfo(self):
+        """Displays an overview of the Customer's stats"""
         bal1 = bal2 = "None"
         checking = savings = "None"
 
@@ -97,6 +98,7 @@ class Employee(Person):
                 print("Invalid input")
     
     def showinfo(self):
+        """Displays an overview of the Employee's stats"""
         bal1 = bal2 = "None"
         checking = savings = "None"
 
@@ -116,6 +118,8 @@ class Employee(Person):
 class Account:
     def __init__(self, balance=0, id=None):
         self.balance = balance
+        self.acctype = 'Basic'
+        self.interest = 0.0
         self._acc_id = id if id is not None else random.randint(1000,9999)
 
     def withdraw(self, amount):
@@ -132,7 +136,12 @@ class Account:
         print(f'Deposited {amount: .2f} to account number {self._acc_id}. Remaining balance: {self.balance: .2f}')
 
     def display(self):
+        print('---------------------')
+        print(f'Account ID: {self.get_id()}')
+        print(f'Account Type: {self.acctype}')
+        print(f'Interest: {self.interest}')
         print(f'Balance: {self.balance: .2f}')
+        print('---------------------')
     
     def get_id(self):
         return self._acc_id
@@ -142,15 +151,17 @@ class Account:
      
 class Savings(Account):
     def __init__(self, balance=0):
+        Account.__init__(self, balance)
         self.interest = 0.0058
         self.acctype = 'Saving'
-        Account.__init__(self, balance)
+        
 
 class Checking(Account):
     def __init__(self, balance=0):
+        Account.__init__(self, balance)
         self.interest = 0.0008
         self.acctype = 'Checking'
-        Account.__init__(self, balance)
+        
 
 
 def account_create():
@@ -277,16 +288,8 @@ def money_load(acc, a):
     
     return x
 
-def account_details(acc):
-    print('---------------------')
-    print(f'Account ID: {acc.get_id()}')
-    print(f'Account Type: {acc.acctype}')
-    print(f'Interest: {acc.interest}')
-    print(f'Balance: {acc.display()}')
-    print('---------------------')
-
 def money_manipulate(a, x):   
-    account_details(x)
+    x.display()
     while True:
         option = input('Press 1 to deposit, 2 to withdraw, 3 to show account info, 0 when finished')
         if option == '1':
@@ -296,7 +299,7 @@ def money_manipulate(a, x):
             amount = float(input('How much to withdraw?'))
             x.withdraw(amount)
         elif option == '3':
-            account_details(x)
+            x.display()
         elif option == '0':
             if x.acctype == 'Saving':
                 a.saving = {x.get_id() : x.balance}
@@ -355,7 +358,7 @@ while True:
                                 money_manipulate(a, x)
 
                         if option == '2':
-                            if a.saving == None:
+                            if a.checking == None:
                                 a, x = money_create('checking', a)
                             else:
                                 x = money_load('checking', a)   
