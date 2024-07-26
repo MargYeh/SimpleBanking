@@ -99,13 +99,6 @@ class Employee(Person):
     
     def showinfo(self):
         """Displays an overview of the Employee's stats"""
-        bal1 = bal2 = "None"
-        checking = savings = "None"
-
-        if self.checking != None:
-            checking, bal1 = next(iter(self.checking.items()))
-        if self.saving != None:
-            savings, bal2 = next(iter(self.saving.items()))
 
         print('---------------------')
         print(f'Name: {self.firstname} {self.lastname}')
