@@ -51,7 +51,7 @@ class Customer(Person):
         print(f'Account Type: {self.acctype}')
         print(f'Address: {self.address}')
         print(f'Checking accounts: {checking} - Balance: {bal1}')
-        print(f'Saving accounts: {savings } - Balance: {bal2}')
+        print(f'Saving accounts: {savings} - Balance: {bal2}')
         print('---------------------')
 
 
@@ -95,6 +95,23 @@ class Employee(Person):
                 break
             else:
                 print("Invalid input")
+    
+    def showinfo(self):
+        bal1 = bal2 = "None"
+        checking = savings = "None"
+
+        if self.checking != None:
+            checking, bal1 = next(iter(self.checking.items()))
+        if self.saving != None:
+            savings, bal2 = next(iter(self.saving.items()))
+
+        print('---------------------')
+        print(f'Name: {self.firstname} {self.lastname}')
+        print(f'Account Type: {self.acctype}')
+        print(f'Address: {self.address}')
+        print(f'Position: {self.position}')
+        print(f'Location: {self.location}')
+        print('---------------------')
     
 class Account:
     def __init__(self, balance=0, id=None):
@@ -227,9 +244,6 @@ def load_json(id, emp="", filename='data.json'):
         logger.error("Faulty login, ID %s doesnt exist", id)
         print(f"ID {id} doesn't exist, please try again")
         return None
-        
-
-
 
 def money_create(acc, a):
     option = input(f"Create {acc} account? Y/N")
